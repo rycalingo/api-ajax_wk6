@@ -1,0 +1,68 @@
+/*  CSS. */
+* { box-sizing: border-box; }
+
+h1 { 
+	font-size: 1.8em;
+	font-weight: 900;
+}
+h2 {
+	font-size: 1.6em;
+	font-weight: 800;
+}
+h3 {
+	font-size: 1.4em;
+	font-weight: 700;
+}
+h4 {
+	font-size: 1.2em;
+	font-weight: 600;
+}
+
+h1, h2, h3, h4 { font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif; }
+
+p, ol, li, a { 
+	font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif; color: #777777;
+	font-size: 1em; }
+
+p, ul, ol, li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	line-height: 1.3em;
+}
+
+a { 
+	font-size: 1em;
+	text-decoration: none;
+	font-family: sans-serif;
+}
+label, textarea, textarea { 
+	font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif; color: #777777;
+	font-size: 1em;
+}	
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.container * {
+	text-align: center;
+	margin: 10px 0;
+}
+.container {
+	margin-top: 40px;
+}
+.container #box {
+	width: 300px;
+	margin: 0 auto;
+	padding: 20px 10px;
+	background: #d5d5d5;
+}
+.container .hero {
+	border: none;
+	font-size: 14px;
+	padding: 5px 30px;
+	margin: auto 5px 10px;
+	background: #63b6ff;
+	color: #ffffff;
+}
