@@ -1,40 +1,96 @@
 // Scripts
 
-      var heros = ["Captain America", "Spiderman", "Ironman", "Thor", "Vision", "Hawkeye", "Antman", "Falcon", "Scarlet"];
+      var artist_list = ["The Weekend", "Ed Sheeran", "Bruno Mars", "Charlie Puth"];
+      var $img_display = $("#image-display");
 
-      var baseURL = "";
+      var baseURL = "https://api.giphy.com/v1/gifs/search?&limit=2";
+      var key = "&api_key=" + "dc6zaTOxFJmzC";
+      var term = "&q=";
 
-      function displayheroInfo() {
+      var queryURL = baseURL + key + term;
 
-      }
+      function togglePic() {
+          $img_display.on("click", "img", toggleClicked);
+
+          function toggleClicked(event) {
+            var target = $(event.target);
+            var state = target.data("state");
+
+            event.stopPropagation();
+            if ( state === "still" ) {
+              target.attr("src", target.data("animate") );
+              target.data("state", "animate");
+
+            }else {
+              target.attr("src", target.data("still"));
+              target.data("state", "still");
+
+            }
+          }
+      };
+      function artistButton(event) {
+        event.preventDefault();
+        $img_display.empty();
+
+        var artistName = event.target
+        artistName = $(artistName).data("artist").replace(" ", "+");
+        queryURL += artistName;
+
+        $.ajax({
+          url: queryURL,
+          method: "GET"
+
+        }).done(function(response) {
+
+          var data = response.data;
+
+          data.forEach(function(item) {
+            var still = item.images.original_still;
+            var animate = item.images.original;
+            console.log(item.images);
+
+            var img = $("<img>");
+            img.attr({
+              "src": still.url, 
+              "data-state": "still", 
+              "data-animate": animate.url,
+              "data-still": still.url
+
+            });
+
+            $img_display.prepend(img);
+          });
+
+        });
+        togglePic();
+
+      };
 
       function renderButtons() {
 
-        $("#buttons-view").empty();
+        $("#button-holder").empty();
 
-        for (var i = 0; i < heros.length; i++) {
+        for (var i = 0; i < artist_list.length; i++) {
 
           var a = $("<button>");
-          a.addClass("hero");
-          a.data("name", heros[i]);
-          a.text(heros[i]);
-          $("#buttons-view").append(a);
+          a.attr("data-artist", artist_list[i]);
+          a.text(artist_list[i]);
+          a.addClass("artist");
+          $("#button-holder").append(a);
         }
-      }
-      $("#add-hero").on("click", function(event) {
+
+        $("#button-holder").on("mouseup", ".artist", artistButton);
+      };
+
+      $("#add-artist").on("click", function(event) {
         event.preventDefault();
 
-        var $hero_input = $("#hero-input");
-        var hero = $hero_input.val().trim();
-
-        $hero_input.val("");
-
-        heros.push(hero);
+        var $user_input = $("#user-input");
+        var artist = $user_input.val().trim();
+        $user_input.val("");
+        artist_list.push(artist);
 
         renderButtons();
-
       });
-
-      $(document).on("click", ".hero", displayheroInfo);
 
       renderButtons();
