@@ -3,16 +3,14 @@
       var artist_list = ["The Weekend", "Ed Sheeran", "Bruno Mars", "Charlie Puth"];
       var $img_display = $("#image-display");
 
-      var baseURL = "https://api.giphy.com/v1/gifs/search?&limit=2";
+      var baseURL = "https://api.giphy.com/v1/gifs/search?&limit=4";
       var key = "&api_key=" + "dc6zaTOxFJmzC";
       var term = "&q=";
 
       var queryURL = baseURL + key + term;
 
       function togglePic() {
-          $img_display.on("click", "img", toggleClicked);
-
-          function toggleClicked(event) {
+          $img_display.on("click", "img", function (event) {
             var target = $(event.target);
             var state = target.data("state");
 
@@ -26,14 +24,13 @@
               target.data("state", "still");
 
             }
-          }
+          });
       };
       function artistButton(event) {
         event.preventDefault();
         $img_display.empty();
 
         var artistName = event.target
-        artistName = $(artistName).data("artist").replace(" ", "+");
         queryURL += artistName;
 
         $.ajax({
