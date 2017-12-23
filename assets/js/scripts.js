@@ -22,9 +22,11 @@
           });
       };
       function artistButton(event) {
-        event.preventDefault();
+        event.stopPropagation();
         $img_display.empty();
-        
+
+        console.log("CLICK");
+
         var term = "&q=" + $(event.target).attr("data-artist");
         var key = "&api_key=" + "dc6zaTOxFJmzC";
         var limit = "&limit=" + 5;
@@ -44,7 +46,7 @@
           data.forEach(function(item) {
             var still = item.images.original_still;
             var animate = item.images.original;
-            console.log(item.images);
+//             console.log(item.images);
 
             var img = $("<img>");
             img.attr({
@@ -76,7 +78,6 @@
           $("#button-holder").append(a);
         }
 
-        $("#button-holder").on("mouseup", ".artist", artistButton);
       };
 
       $("#add-artist").on("click", function(event) {
@@ -91,3 +92,6 @@
       });
 
       renderButtons();
+      
+      $("#button-holder").on("click", ".artist", artistButton);
+
